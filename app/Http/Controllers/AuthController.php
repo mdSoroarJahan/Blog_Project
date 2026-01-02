@@ -14,20 +14,20 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        $request->validate($request, [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed'
         ]);
 
         User::create([
-            'name' => $request->request,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password
         ]);
 
         Auth::attempt($request->only('email', 'password'));
-        return redirect()->route('dashboard');
+        return redirect('/');
     }
 
     public function loginPage()
@@ -37,12 +37,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate($request, [
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if (!Auth::attempt($request->only('email', 'password'), $request->remember)) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return back()->with('status', 'Invalid login details');
         }
 
