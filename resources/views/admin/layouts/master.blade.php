@@ -25,7 +25,7 @@
 <body class="flex min-h-screen bg-gray-100">
     {{-- Sidebar --}}
     <div id="sidebar"
-        class="w-64 bg-gray-900 text-white p-5 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full flexed md:relative z-50 h-screen">
+        class="w-64 bg-gray-900 text-white p-5 space-y-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-50 h-screen">
         {{-- Close button for mobile --}}
         <button class="md:hidden text-white absolute top-4 right-4" onclick="toggleSidebar()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
