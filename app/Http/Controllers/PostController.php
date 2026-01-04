@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -11,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -19,7 +22,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -27,7 +31,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:3|unique:posts,title',
+            'content' => 'required|string',
+            'category' => 'required|exists:categories,id',
+            'user_id' => 'required',
+            'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg'
+        ]);
+
+        // handle Image Upload
+        $imagePath = null;
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $imageName = time() . '_' . 'myapp' . '_' . $image->getClientOriginalName();
+            $imagePath = 'uploads/' . $imageName;
+            $image->move(public_path('uploads'), $imageName);
+        }
+
+        // Create Post
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category,
+            'user_id' => $request->user_id,
+            'featured_image' => $imagePath
+        ]);
+        return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
 
     /**

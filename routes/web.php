@@ -18,4 +18,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::resource('categories', CategoryController::class);
 Route::resource('posts', PostController::class);
 
-Route::get('/admin', [AuthController::class, 'dashboard']);
+Route::get('/admin', [AuthController::class, 'dashboard'])->name('dashboard');
