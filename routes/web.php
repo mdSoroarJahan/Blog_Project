@@ -5,9 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('layouts/app');
-})->name('home');
+Route::get('/', [PostController::class, 'home'])->name('home');
 
 Route::get('/register', [AuthController::class, 'registrationPage'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);

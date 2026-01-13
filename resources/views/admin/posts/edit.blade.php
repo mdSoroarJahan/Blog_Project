@@ -16,11 +16,17 @@
                     <label class="block text-gray-700">Title</label>
                     <input type="text" name="title" class="w-full p-2 border border-gray-300 rounded"
                         placeholder="Post Title" value="{{ old('title', $post->title) }}">
+                    @error('title')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Content</label>
                     <textarea name="content" class="w-full p-2 border border-gray-300 rounded" placeholder="Post Content" rows="5">{{ old('content', $post->content) }}</textarea>
+                    @error('content')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -34,6 +40,9 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <br>
@@ -45,6 +54,9 @@
                     <label class="block text-gray-700">Featured Image</label>
                     <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file"
                         name="featured_image" class="w-full p-2 border border-gray-300 rounded" accept="image/*">
+                    @error('featured_image')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg:blue-700">Update

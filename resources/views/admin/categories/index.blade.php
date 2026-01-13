@@ -46,7 +46,7 @@
                 </tbody>
             </table>
             <br>
-            {{-- {{ $categories->links() }} --}}
+            {{ $categories->links() }}
         </div>
     </section>
 @endsection

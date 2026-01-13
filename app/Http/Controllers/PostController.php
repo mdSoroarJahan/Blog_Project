@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     /**
+     * Display posts on home page.
+     */
+    public function home()
+    {
+        $posts = Post::with('category', 'user')->latest()->get();
+        return view('home', compact('posts'));
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $user_id = Auth::user()->id;
-        $posts = Post::where('user_id', $user_id)->get();
+        $posts = Post::where('user_id', $user_id)->paginate(3);
         return view('admin.posts.index', compact('posts'));
     }
 
