@@ -82,7 +82,39 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        // Validate
+        $request->validate([
+            'title' => 'required|min:3|unique:posts,title,'  . $post->id,
+            'content' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'user_id'  => 'required',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        // File Upload Handling
+        if ($request->hasFile('featured_image')) {
+            // Delete Previous Image
+            if ($post->featured_image && file_exists(public_path($post->featured_image))) {
+                unlink(public_path($post->featured_image));
+            }
+
+            // Handel Newly Uploaded Image
+            $image = $request->file('featured_image');
+            $imageName  = time() . '_' . 'myapp' . '_' . $image->getClientOriginalName();
+            $imagePath = 'uploads/' . $imageName;
+            $image->move(public_path('uploads'), $imageName);
+        }
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category_id,
+            'user_id' => $request->user_id,
+            'featured_image' => $imagePath
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'post updated successfully');
     }
 
     /**
@@ -90,6 +122,15 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        // If Post has image delete it
+        // Delete Previous Image
+        if ($post->featured_image && file_exists(public_path($post->featured_image))) {
+            unlink(public_path($post->featured_image));
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 }

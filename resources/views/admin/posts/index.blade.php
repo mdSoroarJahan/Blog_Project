@@ -8,6 +8,23 @@
                 Post</a>
         </div>
 
+        {{-- Success Message --}}
+        @if (session('success'))
+            <div id="success-message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    const message = document.getElementById('success-message');
+                    if (message) {
+                        message.style.transition = 'opacity 0.5s';
+                        message.style.opacity = '0';
+                        setTimeout(() => message.remove(), 500);
+                    }
+                }, 3000);
+            </script>
+        @endif
+
         {{-- Post Listing Table --}}
         <div class="bg-white p-6 rounded shadow">
             <h3 class="text-xl font-semibold mb-4">Post List</h3>
