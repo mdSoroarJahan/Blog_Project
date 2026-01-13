@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach ($posts as $post)
                         <tr class="text-gray-700">
-                            <td class="px-4 py-2 border">1</td>
+                            <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2 border">
                                 <img class="w-28 h-18" src="{{ asset('/' . $post->featured_image) }}" alt="">
                             </td>
