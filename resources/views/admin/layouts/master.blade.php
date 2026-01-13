@@ -58,7 +58,7 @@
             {{-- Username Dropdown Button --}}
             <div class="relative">
                 <button class="flex item-center space-x-2 text-gray-700" onclick="toggleDropdown()">
-                    <span class="text-gray-700">Soroar Jahan</span>
+                    <span class="text-gray-700">{{ auth()->user()->name }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-4 h4">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -67,7 +67,14 @@
                 <div id="dropdown"
                     class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
                     <ul class="py-2">
-                        <li><a href="" class="block px-5 py-2 text-gray-700 hover:bg-gray-200">Logout</a></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST"
+                                class="block px-5 py-2 text-gray-700
+                                hover:bg-gray-200">
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

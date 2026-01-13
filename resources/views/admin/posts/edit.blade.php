@@ -11,7 +11,7 @@
                 enctype="multipart/form-data">
                 @csrf
                 @method('put')
-                <input type="hidden" name="user_id" value="1">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                 <div>
                     <label class="block text-gray-700">Title</label>
                     <input type="text" name="title" class="w-full p-2 border border-gray-300 rounded"

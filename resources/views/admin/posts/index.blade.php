@@ -32,6 +32,7 @@
                 <thead class="bg-gray-100">
                     <tr>
                         <th class="px-4 py-2 border">#</th>
+                        <th class="px-4 py-2 border">Image</th>
                         <th class="px-4 py-2 border">Title</th>
                         <th class="px-4 py-2 border">Author</th>
                         <th class="px-4 py-2 border">Action</th>
@@ -41,8 +42,11 @@
                     @foreach ($posts as $post)
                         <tr class="text-gray-700">
                             <td class="px-4 py-2 border">1</td>
+                            <td class="px-4 py-2 border">
+                                <img class="w-28 h-18" src="{{ asset('/' . $post->featured_image) }}" alt="">
+                            </td>
                             <td class="px-4 py-2 border">{{ $post->title }}</td>
-                            <td class="px-4 py-2 border">Soroar Jahan</td>
+                            <td class="px-4 py-2 border">{{ $post->user->name }}</td>
                             <td class="px-4 py-2 border space-x-2">
                                 <a href="{{ route('posts.edit', $post->id) }}"
                                     class="text-blue-500 hover:underline">Edit</a>

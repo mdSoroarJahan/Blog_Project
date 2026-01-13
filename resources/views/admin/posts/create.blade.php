@@ -6,7 +6,7 @@
         <h3 class="text-xl font-semibold mb-4">Create Post</h3>
         <form action="{{ route('posts.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_id" value="1">
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
             <div>
                 <label class="block text-gray-700">Title</label>
                 <input type="text" name="title" class="w-full p-2 border border-gray-300 rounded"
